@@ -3,6 +3,7 @@ package sereen.awad.safinalproject.data;
 import android.content.Context;
 
 import androidx.room.Database;
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import sereen.awad.safinalproject.data.MySubjectTable.MySubject;
@@ -17,11 +18,11 @@ import sereen.awad.safinalproject.data.MyUserTable.MyUserQuery;
 version
 عند تغيير اي شي يخص جدول او داول علينا تغيير رقم الاصدار يتم بناء قاعدة البيانات من جديد
 */
-@Database(entities = {MyUser.class, MySubject.class, MyTask.class},version = 1)
 /**
  الفئة المسؤولة عن بناء قاعدة البيانات بكل جداولها
  وتوفر لنا كائن للتعامل مع قاعدة البيانات
  */
+@Database(entities = {MyUser.class, MySubject.class, MyTask.class},version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     /**
      كائن للتعامل مع قاعدة البيانات
@@ -51,7 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getDB(Context context){
         if(db==null)
         {
-            db = RoomDatabase.databaseBuilder(context, AppDatabase.class, "SereenDataBase")
+            db = Room.databaseBuilder(context, AppDatabase.class, "SereenDataBase")
                     .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build();
