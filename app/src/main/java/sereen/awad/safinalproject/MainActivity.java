@@ -17,13 +17,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+
         //بناء قاعدة بيانات وارجاع مؤشر عليها 1
         AppDatabase db=AppDatabase.getDB(getApplicationContext());
         //مؤشر لكائن عمليات لجدول 2
         MySubjectQuery subjectQuery=db.getMySubjectQuery();
         //بناء كائن من نوع الجدول وتحديد قيم الصفات 3
+        MySubject s1=new MySubject();
+        s1.setTitle("Math");
+        MySubject s2 =new MySubject();
+        s2.title="Computer";
         //إضافة كائن للجدول 4
+        subjectQuery.insert(s1);
+        subjectQuery.insert(s2);
         EdgeToEdge.enable(this);
+
+
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
