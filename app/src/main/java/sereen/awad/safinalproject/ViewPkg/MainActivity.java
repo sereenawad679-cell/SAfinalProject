@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject;
+package sereen.awad.safinalproject.ViewPkg;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import sereen.awad.safinalproject.R;
 import sereen.awad.safinalproject.data.AppDatabase;
 import sereen.awad.safinalproject.data.MySubjectTable.MySubject;
 import sereen.awad.safinalproject.data.MySubjectTable.MySubjectQuery;
