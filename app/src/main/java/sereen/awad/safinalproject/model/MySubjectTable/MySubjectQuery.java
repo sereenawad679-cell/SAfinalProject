@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject.data.MySubjectTable;
+package sereen.awad.safinalproject.model.MySubjectTable;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

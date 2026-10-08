@@ -1,5 +1,6 @@
-package sereen.awad.safinalproject.data.MyTaskTable;
+package sereen.awad.safinalproject.model.MyTaskTable;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -64,6 +65,20 @@ public interface MyTaskQuery {
  */
 @Query("SELECT * FROM MyTask WHERE subjId=:key_id ORDER BY importance DESC")
     List<MyTask> getTasksBySubjId(long key_id);
+    @Query("SELECT * FROM MyTask WHERE keyId=:taskId ORDER BY importance DESC")
 
+    LiveData<MyTask> getTaskById(long taskId);
+    @Query("SELECT * FROM MyTask WHERE shortTitle=:title ORDER BY importance DESC")
+
+    LiveData<List<MyTask>> getTasksByTitle(String title);
+    @Query("SELECT * FROM MyTask WHERE userId=:userId ORDER BY importance DESC")
+
+    LiveData<List<MyTask>> getTasksByUserId(long userId);
+    @Query("SELECT * FROM MyTask WHERE importance=:priority ORDER BY importance DESC")
+
+    LiveData<List<MyTask>> getTasksByPriority(int priority);
+    @Query("SELECT * FROM MyTask WHERE userId=:userId AND shortTitle=:title ORDER BY importance DESC")
+
+    LiveData<List<MyTask>> getTasksByUserIdAndTitle(long userId, String title);
 }
 

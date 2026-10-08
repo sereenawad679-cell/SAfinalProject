@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject.data;
+package sereen.awad.safinalproject.model;
 
 import android.content.Context;
 
@@ -6,12 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import sereen.awad.safinalproject.data.MySubjectTable.MySubject;
-import sereen.awad.safinalproject.data.MySubjectTable.MySubjectQuery;
-import sereen.awad.safinalproject.data.MyTaskTable.MyTask;
-import sereen.awad.safinalproject.data.MyTaskTable.MyTaskQuery;
-import sereen.awad.safinalproject.data.MyUserTable.MyUser;
-import sereen.awad.safinalproject.data.MyUserTable.MyUserQuery;
+import sereen.awad.safinalproject.model.MySubjectTable.MySubject;
+import sereen.awad.safinalproject.model.MySubjectTable.MySubjectQuery;
+import sereen.awad.safinalproject.model.MyTaskTable.MyTask;
+import sereen.awad.safinalproject.model.MyTaskTable.MyTaskQuery;
+import sereen.awad.safinalproject.model.MyUserTable.MyUser;
+import sereen.awad.safinalproject.model.MyUserTable.MyUserQuery;
 
 /*
 تعريف الجداول ورقم الاصدار

@@ -9,9 +9,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import sereen.awad.safinalproject.R;
-import sereen.awad.safinalproject.data.AppDatabase;
-import sereen.awad.safinalproject.data.MySubjectTable.MySubject;
-import sereen.awad.safinalproject.data.MySubjectTable.MySubjectQuery;
+import sereen.awad.safinalproject.model.AppDatabase;
+import sereen.awad.safinalproject.model.MySubjectTable.MySubject;
+import sereen.awad.safinalproject.model.MySubjectTable.MySubjectQuery;
 
 public class MainActivity extends AppCompatActivity {
 

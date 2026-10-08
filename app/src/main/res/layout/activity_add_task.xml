@@ -1,56 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ViewPkg.AddTaskActivity">
+
 
     <TextView
         android:id="@+id/TextView"
-        android:layout_width="195dp"
-        android:layout_height="48dp"
+        android:layout_width="228dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Add New Task"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="101dp" />
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="61dp" />
 
     <EditText
-        android:id="@+id/eTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/etTitle"
+        android:layout_width="366dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center"
         android:ems="10"
+        android:hint="Task Title"
         android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="59dp"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="160dp" />
 
     <EditText
-        android:id="@+id/etDescrition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/etDescribtion"
+        android:layout_width="366dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center"
         android:ems="10"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center|start|top"
         android:hint="Task Description"
-        android:inputType="text"
-        tools:layout_editor_absoluteX="16dp"
+        android:inputType="textMultiLine"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="33dp"
         tools:layout_editor_absoluteY="213dp" />
 
     <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/etPriority"
+        android:layout_width="366dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="259dp" />
+        android:hint="Priority(e.g 1,2,3)"
+        android:inputType="number"
+        android:rotationY="0"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="289dp" />
 
     <Button
         android:id="@+id/btnSaveTask"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Save Task"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="305dp" />
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="433dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

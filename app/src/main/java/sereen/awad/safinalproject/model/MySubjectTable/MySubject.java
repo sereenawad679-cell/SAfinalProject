@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject.data.MySubjectTable;
+package sereen.awad.safinalproject.model.MySubjectTable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

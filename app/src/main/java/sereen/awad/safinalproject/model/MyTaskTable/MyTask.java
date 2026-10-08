@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject.data.MyTaskTable;
+package sereen.awad.safinalproject.model.MyTaskTable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

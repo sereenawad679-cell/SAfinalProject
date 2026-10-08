@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject.data.MyUserTable;
+package sereen.awad.safinalproject.model.MyUserTable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
