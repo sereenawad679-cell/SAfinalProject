@@ -1,6 +1,8 @@
 package sereen.awad.safinalproject.ViewPkg;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,10 @@ import androidx.core.view.WindowInsetsCompat;
 import sereen.awad.safinalproject.R;
 
 public class AddTaskActivity extends AppCompatActivity {
+private EditText etTitle;
+private EditText etDescribtion;
+private Number  etPriority;
+private Button btnSaveTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +28,7 @@ public class AddTaskActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+taskFindById=findViewById()
     }
+
 }
