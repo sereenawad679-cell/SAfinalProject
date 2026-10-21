@@ -86,40 +86,38 @@ public  LiveData<List<MyTask>> getTasksByPriority(int priority) {
     }
 
 
-/**
- * إدراج مهمة أو عدة مهمات جديدة في قاعدة البيانات.
- *
+/*
+ * إدراج مهمة أو عدة مهمات جديدة في قاعدة البيانات
  * @param tasks المهام المراد إضافتها.
  */
+public void insert(MyTask...tasks)
+{
+    taskQuery.insertTask(tasks);
+}
 
-
-/**
- * تحديث مهمة أو عدة مهمات في قاعدة البيانات.
- *
+/*
+ * تحديث مهمة أو عدة مهمات في قاعدة البيانات
  * @param tasks المهام المراد تحديثها.
  */
+public void updateTask(MyTask...tasks) {
+    taskQuery.updateTask(tasks);
+}
 
-
-/**
- * تحديث بيانات مهمة محددة (العنوان، الوصف، والأولوية) باستخدام معرف المهمة.
- *
- * @param taskId      معرف المهمة المراد تعديلها.
- * @param title       العنوان الجديد.
- * @param description الوصف الجديد.
- * @param priority    الأولوية الجديدة.
- */
-
-    /**
-     * حذف مهمة أو عدة مهمات من قاعدة البيانات.
-     *
+    /*
+     حذف مهمة أو عدة مهمات من قاعدة البيانات*
      * @param tasks المهام المراد حذفها.
      */
+    public void delete(MyTask... tasks) {
+        taskQuery.deleteTask(tasks);
+    }
 
 
-    /**
-     * حذف مهمة محددة باستخدام معرفها الفريد (Task ID).
-     *
+    /*
+      حذف مهمة محددة باستخدام معرفها الفريد (Task ID)*
      * @param taskId معرف المهمة المراد حذفها.
      */
+    public void deleteTaskById(long taskId) {
+        taskQuery.deleteTaskById(taskId);
+    }
 
 }

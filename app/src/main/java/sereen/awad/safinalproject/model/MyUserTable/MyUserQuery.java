@@ -1,5 +1,6 @@
 package sereen.awad.safinalproject.model.MyUserTable;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,7 +22,7 @@ public interface MyUserQuery
     List<MyUser> loadAllByIds(int[] userIds);
     //هل المستعمل موجود حسب الايميل وكلمة السر
 @Query("SELECT * FROM MyUser WHERE email =:myEmail AND passw = :myPassw LIMIT 1")
-    MyUser checkEmailPassw(String myEmail, String myPassw);
+    List<MyUser> checkEmailPassw(String myEmail, String myPassw);
     //فحص هل الايميل موجود من قبل
     @Query("SELECT * FROM MyUser WHERE email = :myEmail LIMIT 1")
     MyUser checkEmail(String myEmail);
@@ -30,7 +31,7 @@ public interface MyUserQuery
     void insertAll(MyUser... users);
     // حذف
     @Delete
-    void delete(MyUser user);
+    void delete();
     //حذف حسب الرقم المميز id
     @Query("Delete From MyUser WHERE keyid=:id ")
 
@@ -41,4 +42,21 @@ public interface MyUserQuery
     //تعديل مستعمل او قائمة مستعملين
 @Update
     void update(MyUser...values);
+    @Query("SELECT * FROM MyUser WHERE keyid=:keyId")
+
+    LiveData<List<MyUser>> getUserByKeyId(long keyId);
+    @Query("SELECT * FROM MyUser WHERE full_name=:fullName")
+
+    LiveData<MyUser> getUserByfullName(String fullName);
+    @Query("SELECT * FROM MyUser WHERE email=:email")
+
+    LiveData<MyUser> getUserByemail( String email);
+    @Query("SELECT * FROM MyUser WHERE Phone=:Phone")
+
+    LiveData<MyUser> getUserByPhone(String Phone);
+    @Query("SELECT * FROM MyUser WHERE passw=:passw")
+
+    LiveData<MyUser> getUserBypassw(String passw);
+@Delete
+    void deleteByKeyId(long keyId);
 }

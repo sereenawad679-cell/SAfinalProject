@@ -1,5 +1,6 @@
 package sereen.awad.safinalproject.model;
 
+import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Database;
@@ -25,9 +26,11 @@ version
 @Database(entities = {MyUser.class, MySubject.class, MyTask.class},version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     /**
-     كائن للتعامل مع قاعدة البيانات
+     * كائن للتعامل مع قاعدة البيانات
      */
     private static AppDatabase db;
+
+
     /**
      يعيد كائن لعمليات جدول المستعملين
      @return

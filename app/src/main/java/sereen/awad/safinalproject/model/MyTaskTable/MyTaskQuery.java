@@ -80,5 +80,7 @@ public interface MyTaskQuery {
     @Query("SELECT * FROM MyTask WHERE userId=:userId AND shortTitle=:title ORDER BY importance DESC")
 
     LiveData<List<MyTask>> getTasksByUserIdAndTitle(long userId, String title);
+@Delete
+    void deleteTaskById(long taskId);
 }
 
