@@ -25,12 +25,82 @@ public class MyTask {
     public MyTask() {
     }
 
+    public long getKeyId() {
+        return keyId;
+    }
+
+    public int getImportance() {
+        return importance;
+    }
+
+    public String getShortTitle() {
+        return shortTitle;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public long getSubjId() {
+        return subjId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public void setSubjId(long subjId) {
+        this.subjId = subjId;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setShortTitle(String shortTitle) {
+        this.shortTitle = shortTitle;
+    }
+
+    public void setImportance(int importance) {
+        this.importance = importance;
+    }
+
+    public void setKeyId(long keyId) {
+        this.keyId = keyId;
+    }
 
 
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "MyTask{" +
+                "keyId=" + keyId +
+                ", importance=" + importance +
+                ", shortTitle='" + shortTitle + '\'' +
+                ", text='" + text + '\'' +
+                ", time=" + time +
+                ", isCompleted=" + isCompleted +
+                ", subjId=" + subjId +
+                ", userId=" + userId +
+                '}';
+    }
 }

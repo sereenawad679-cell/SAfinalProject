@@ -9,13 +9,6 @@ public class MySubject
     @PrimaryKey(autoGenerate = true)
     public long key_id;
 
-    @Override
-    public String toString() {
-        return "MySubject{" +
-                "key_id=" + key_id +
-                ", title='" + title + '\'' +
-                '}';
-    }
 
     public String getTitle() {
         return title;
@@ -34,4 +27,13 @@ public class MySubject
     }
 
     public String title;
+    @Override
+    public String toString() {
+        return "MySubject{" +
+                "key_id=" + key_id +
+                ", title='" + title + '\'' +
+                '}';
+    }
+
+
 }

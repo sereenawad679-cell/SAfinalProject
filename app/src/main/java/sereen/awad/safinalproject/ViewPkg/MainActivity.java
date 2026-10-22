@@ -1,6 +1,7 @@
 package sereen.awad.safinalproject.ViewPkg;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,5 +42,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        btnAddTaskScreen = findViewById(R.id.btnAddTaskScreen);
     }
 }
