@@ -2,6 +2,7 @@ package sereen.awad.safinalproject.ViewPkg;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import sereen.awad.safinalproject.model.MySubjectTable.MySubject;
 import sereen.awad.safinalproject.model.MySubjectTable.MySubjectQuery;
 
 public class MainActivity extends AppCompatActivity {
+    private Button btnAddTaskScreen;
+    private Button btnRegisterScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         //إضافة كائن للجدول 4
         subjectQuery.insert(s1);
         subjectQuery.insert(s2);
-        EdgeToEdge.enable(this);
 
 
         setContentView(R.layout.activity_main);
@@ -43,5 +45,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         btnAddTaskScreen = findViewById(R.id.btnAddTaskScreen);
+        btnRegisterScreen = findViewById(R.id.btnRegisterScreen);
     }
 }

@@ -1,12 +1,13 @@
 package sereen.awad.safinalproject.model;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import sereen.awad.safinalproject.model.MyDressTable.MyDress;
+import sereen.awad.safinalproject.model.MyDressTable.MyDressQuery;
 import sereen.awad.safinalproject.model.MySubjectTable.MySubject;
 import sereen.awad.safinalproject.model.MySubjectTable.MySubjectQuery;
 import sereen.awad.safinalproject.model.MyTaskTable.MyTask;
@@ -23,7 +24,7 @@ version
  الفئة المسؤولة عن بناء قاعدة البيانات بكل جداولها
  وتوفر لنا كائن للتعامل مع قاعدة البيانات
  */
-@Database(entities = {MyUser.class, MySubject.class, MyTask.class},version = 1)
+@Database(entities = {MyUser.class, MySubject.class, MyTask.class, MyDress.class},version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     /**
      * كائن للتعامل مع قاعدة البيانات
@@ -46,6 +47,11 @@ public abstract class AppDatabase extends RoomDatabase {
      @return
      */
     public abstract MyTaskQuery getMyTaskQuery();
+    /**
+     يعيد كائن لعمليات جدول الفساتين
+     @return
+     */
+    public abstract MyDressQuery getMyDressQuery();
 
     /**
      بناء قاعدة البيانات واعادة كائن يؤشر عليها

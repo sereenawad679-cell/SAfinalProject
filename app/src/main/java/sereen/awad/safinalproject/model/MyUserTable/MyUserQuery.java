@@ -31,7 +31,7 @@ public interface MyUserQuery
     void insertAll(MyUser... users);
     // حذف
     @Delete
-    void delete();
+    void delete(MyUser... users);
     //حذف حسب الرقم المميز id
     @Query("Delete From MyUser WHERE keyid=:id ")
 
@@ -57,6 +57,6 @@ public interface MyUserQuery
     @Query("SELECT * FROM MyUser WHERE passw=:passw")
 
     LiveData<MyUser> getUserBypassw(String passw);
-@Delete
+    @Query("DELETE FROM MyUser WHERE keyid=:keyId")
     void deleteByKeyId(long keyId);
 }

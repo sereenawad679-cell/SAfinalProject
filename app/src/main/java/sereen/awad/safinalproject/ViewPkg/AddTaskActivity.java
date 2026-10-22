@@ -37,7 +37,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void onClickNext(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
-        Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
+        Intent i = new Intent(AddTaskActivity.this, AddTaskActivity.class);
         //تفعيل نشاط/شاشة جديدة بواسطة Intent
         startActivity(i);
     }
