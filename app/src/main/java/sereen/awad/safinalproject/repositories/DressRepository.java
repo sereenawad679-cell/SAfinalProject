@@ -21,7 +21,7 @@ public class DressRepository {
     }
     public DressRepository(Application application){
         AppDatabase db=AppDatabase.getDB(application);
-        DressQuery = db.getMyTaskQuery();
+        DressQuery = db.getMyDressQuery();
         allDresses = (LiveData<List<MyTask>>) DressQuery.getAllTasks();
     }
 }
