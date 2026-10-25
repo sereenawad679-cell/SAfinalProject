@@ -54,7 +54,7 @@ public class TaskRepository
         * @param taskId معرف المهمة الفريد.
         * @return كائن المهمة المطلوب
     */
-    public LiveData<MyTask> gettaskById(long taskId){
+    public LiveData<MyTask> getTaskById(long taskId){
         return taskQuery.getTaskById(taskId);
     }
     /*
@@ -120,6 +120,8 @@ public void updateTask(MyTask...tasks) {
         taskQuery.deleteTaskById(taskId);
     }
 
-    public LiveData<MyTask> getTaskById(long taskId) {
+    public LiveData<List<MyTask>> getTasksByText(String text) {
+        return taskQuery.getTasksByText(text);
     }
+
 }

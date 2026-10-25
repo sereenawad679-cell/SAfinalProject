@@ -76,12 +76,48 @@ public class DressRepository {
     }
 
     /*
+     * جلب الفساتين المفلترة حسب القماش/المادة
+     * @param material المادة المطلوبة.
+     * @return قائمة الفساتين بالمادة المحددة.
+     */
+    public LiveData<List<MyDress>> getDressesByMaterial(String material) {
+        return dressQuery.getDressesByMaterial(material);
+    }
+
+    /*
+     * جلب الفساتين المفلترة حسب الحالة
+     * @param condition الحالة المطلوبة.
+     * @return قائمة الفساتين بالحالة المحددة.
+     */
+    public LiveData<List<MyDress>> getDressesByCondition(String condition) {
+        return dressQuery.getDressesByCondition(condition);
+    }
+
+    /*
      * جلب الفساتين المفلترة حسب المدينة
      * @param city المدينة المطلوبة.
      * @return قائمة الفساتين بالمدينة المحددة.
      */
     public LiveData<List<MyDress>> getDressesByCity(String city) {
         return dressQuery.getDressesByCity(city);
+    }
+
+    /*
+     * جلب الفساتين المفلترة حسب الوصف
+     * @param description الوصف المطلوب.
+     * @return قائمة الفساتين بالوصف المحدد.
+     */
+    public LiveData<List<MyDress>> getDressesByDescription(String description) {
+        return dressQuery.getDressesByDescription(description);
+    }
+
+    /*
+     * جلب الفساتين المفلترة حسب هل تم لبسه أم لا
+     * @param hasBeenWorn حالة اللبس.
+     * @return قائمة الفساتين المطابقة.
+     */
+    public LiveData<List<MyDress>> getDressesByHasBeenWorn(boolean hasBeenWorn) {
+        return dressQuery.getDressesByHasBeenWorn(hasBeenWorn);
     }
 
     /*

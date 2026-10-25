@@ -11,7 +11,7 @@ import java.util.List;
 import sereen.awad.safinalproject.model.MyTaskTable.MyTask;
 import sereen.awad.safinalproject.repositories.TaskRepository;
 
-/**
+/*
  * نموذج عرض المهام (TaskViewModel) مسئول عن تجهيز وإدارة البيانات المتعلقة بالمهام (MyTask) لصالح واجهات المستخدم (Views/Activities).
  * يقوم بالاحتفاظ بالبيانات وتجاوز عمليات إعادة إنشاء النشاط (Configuration Changes) مثل دوران الشاشة،
  * ويتعامل مع {@link TaskRepository} لتنفيذ العمليات المختلفة.
@@ -20,7 +20,7 @@ public class TaskViewModel extends AndroidViewModel {
     private final TaskRepository repository;
     private final LiveData<List<MyTask>> allTasks;
 
-    /**
+    /*
      * منشئ الكلاس (Constructor).
      * يقوم بتهيئة المستودع (TaskRepository) وجلب قائمة جميع المهام الأولية.
      *
@@ -32,7 +32,7 @@ public class TaskViewModel extends AndroidViewModel {
         allTasks = repository.getAllTasks();
     }
 
-    /**
+    /*
      * جلب جميع المهام كـ LiveData لمراقبتها من واجهة المستخدم.
      *
      * @return قائمة بجميع المهام محدثة تلقائياً.
@@ -41,7 +41,7 @@ public class TaskViewModel extends AndroidViewModel {
         return allTasks;
     }
 
-    /**
+    /*
      * جلب المهام الخاصة بمستخدم معين بناءً على معرف المستخدم (User ID).
      *
      * @param userId معرف المستخدم المراد جلب مهامه.
@@ -51,7 +51,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getTasksByUserId(userId);
     }
 
-    /**
+    /*
      * جلب مهمة محددة بناءً على معرفها الفريد (Task ID).
      *
      * @param taskId معرف المهمة الفريد.
@@ -61,7 +61,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getTaskById(taskId);
     }
 
-    /**
+    /*
      * البحث عن المهام التي تتطابق عناوينها مع النص المدخل.
      *
      * @param title النص أو الكلمة المراد البحث عنها في العنوان.
@@ -71,17 +71,17 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getTasksByTitle(title);
     }
 
-    /**
+    /*
      * البحث عن المهام التي تتطابق أوصافها مع النص المدخل.
      *
-     * @param description النص المراد البحث عنه في الوصف.
+     * @param text النص المراد البحث عنه.
      * @return قائمة المهام المطابقة.
      */
-    public LiveData<List<MyTask>> getTasksByDescription(String description) {
-        return repository.getTasksByDescription(description);
+    public LiveData<List<MyTask>> getTasksByText(String text) {
+        return repository.getTasksByText(text);
     }
 
-    /**
+    /*
      * جلب المهام المفلترة حسب مستوى الأولوية.
      *
      * @param priority مستوى الأولوية المطلوب.
@@ -91,7 +91,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getTasksByPriority(priority);
     }
 
-    /**
+    /*
      * جلب المهام الخاصة بمستخدم معين والتي تتطابق مع عنوان معين.
      *
      * @param userId معرف المستخدم.
@@ -102,7 +102,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getTasksByUserIdAndTitle(userId, title);
     }
 
-    /**
+    /*
      * إدراج مهمة أو عدة مهمات جديدة عبر المستودع.
      *
      * @param tasks المهام المراد إضافتها.
@@ -111,16 +111,16 @@ public class TaskViewModel extends AndroidViewModel {
         repository.insert(tasks);
     }
 
-    /**
+    /*
      * تحديث مهمة أو عدة مهمات عبر المستودع.
      *
      * @param tasks المهام المراد تحديثها.
      */
     public void update(MyTask... tasks) {
-        repository.update(tasks);
+        repository.updateTask(tasks);
     }
 
-    /**
+    /*
      * تحديث بيانات مهمة محددة (العنوان، الوصف، والأولوية) باستخدام معرف المهمة.
      *
      * @param taskId      معرف المهمة المراد تعديلها.
@@ -128,11 +128,8 @@ public class TaskViewModel extends AndroidViewModel {
      * @param description الوصف الجديد.
      * @param priority    الأولوية الجديدة.
      */
-    public void updateTask(long taskId, String title, String description, int priority) {
-        repository.updateTask(taskId, title, description, priority);
-    }
 
-    /**
+    /*
      * حذف مهمة أو عدة مهمات عبر المستودع.
      *
      * @param tasks المهام المراد حذفها.
@@ -141,7 +138,7 @@ public class TaskViewModel extends AndroidViewModel {
         repository.delete(tasks);
     }
 
-    /**
+    /*
      * حذف مهمة محددة باستخدام معرفها الفريد (Task ID).
      *
      * @param taskId معرف المهمة المراد حذفها.
