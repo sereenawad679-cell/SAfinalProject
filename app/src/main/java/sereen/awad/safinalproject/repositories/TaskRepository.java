@@ -46,7 +46,7 @@ public class TaskRepository
     * @param userIdمعرف المستخدم المراد جلب مهامه
     * @return قائمة المهام الخاصة بالمستخدم المحدد
     */
-    public LiveData<List<MyTask>> getTasksByTitle(long userId)
+    public LiveData<List<MyTask>> getTasksByUserId(long userId)
     {
         return taskQuery.getTasksByUserId(userId);
     }
@@ -120,4 +120,6 @@ public void updateTask(MyTask...tasks) {
         taskQuery.deleteTaskById(taskId);
     }
 
+    public LiveData<MyTask> getTaskById(long taskId) {
+    }
 }
