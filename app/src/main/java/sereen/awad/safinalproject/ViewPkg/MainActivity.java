@@ -1,5 +1,6 @@
 package sereen.awad.safinalproject.ViewPkg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,5 +47,15 @@ public class MainActivity extends AppCompatActivity {
         });
         btnAddTaskScreen = findViewById(R.id.btnAddTaskScreen);
         btnRegisterScreen = findViewById(R.id.btnRegisterScreen);
+    }
+    public void onClickNextT(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
+        Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
+        //تفعيل نشاط/شاشة جديدة بواسطة Intent
+        startActivity(i);
+    }
+    public void onClickNextR(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
+        Intent i = new Intent(MainActivity.this, RegisterActivity.class);
+        //تفعيل نشاط/شاشة جديدة بواسطة Intent
+        startActivity(i);
     }
 }
