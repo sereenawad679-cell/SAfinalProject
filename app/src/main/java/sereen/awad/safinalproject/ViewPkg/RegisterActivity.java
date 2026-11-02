@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister =findViewById(R.id.btnRegister);
     }
     public void onClickNextS(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
-        Intent i = new Intent(RegisterActivity.this, SignInActivity.class);
+        Intent i = new Intent(RegisterActivity.this, com.example.myapp.SignInActivity.class);
         //تفعيل نشاط/شاشة جديدة بواسطة Intent
         startActivity(i);
     }

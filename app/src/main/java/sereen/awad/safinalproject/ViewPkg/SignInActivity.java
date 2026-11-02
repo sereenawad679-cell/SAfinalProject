@@ -1,14 +1,20 @@
-package com.example.myapp; // اسم الباكيج الخاص بك
-
+package sereen.awad.safinalproject.ViewPkg;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import sereen.awad.safinalproject.R;
+
+/*
+ * شاشة تسجيل الدخول (SignInActivity)
+ * تتيح للمستخدم تسجيل الدخول إلى التطبيق باستخدام البريد الإلكتروني وكلمة المرور.
+ */
 public class SignInActivity extends AppCompatActivity {
 
     // 1. تعريف الصفات (Variables) الخاصة بشاشة تسجيل الدخول
@@ -28,7 +34,7 @@ public class SignInActivity extends AppCompatActivity {
             return insets;
         });
 
-        // 2. ربط المتغيرات بعناصر التصميم في XML بواسطة الـ ID
+        // ربط المتغيرات بعناصر التصميم في XML بواسطة الـ ID
         emailEditText = findViewById(R.id.et_email);
         passwordEditText = findViewById(R.id.et_password);
         signInButton = findViewById(R.id.btn_sign_in);

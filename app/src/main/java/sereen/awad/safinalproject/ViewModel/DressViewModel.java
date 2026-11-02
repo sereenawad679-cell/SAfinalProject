@@ -1,4 +1,4 @@
-package sereen.awad.safinalproject.viewmodel;
+package sereen.awad.safinalproject.ViewModel;
 
 import android.app.Application;
 
