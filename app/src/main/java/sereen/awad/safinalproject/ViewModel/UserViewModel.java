@@ -138,4 +138,5 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteUserById(long keyId) {
         repository.deleteUserById(keyId);
     }
+
 }

@@ -136,4 +136,5 @@ public class UserRepository {
     public void deleteUserById(long keyId) {
         userQuery.deleteUserById(keyId);
     }
+
 }

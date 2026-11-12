@@ -22,10 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewPkg.MainActivity2"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".ViewPkg.AddTaskActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -37,10 +33,7 @@
             android:name=".ViewPkg.SignInActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ViewPkg.SignUpActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>
