@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPhone;
     private Button btnRegister;
     private UserViewModel userViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +37,14 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
         etFullName = findViewById(R.id.etFullName);
-        etEmail= findViewById(R.id.etEmail);
+        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        etPhone= findViewById(R.id.etPhone);
-        btnRegister =findViewById(R.id.btnRegister);
-        btnRegister .setOnClickListener(v -> RegisterUser());
-        userViewModel =new ViewModelProvider(this).get(UserViewModel.class);
+        etPhone = findViewById(R.id.etPhone);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(v -> RegisterUser());
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
     }
+
     private void RegisterUser() {
         String fullName = etFullName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
@@ -85,34 +87,43 @@ public class RegisterActivity extends AppCompatActivity {
                 hasDigit = true;
             }
 
-        if (!hasLetter || !hasDigit) {
-            etPassword.setError("Password must include both letters and numbers");
-            etPassword.requestFocus();
+            if (!hasLetter || !hasDigit) {
+                etPassword.setError("Password must include both letters and numbers");
+                etPassword.requestFocus();
+                return;
+            }
+        }
+        // فحص أن رقم الهاتف يتكون من أرقام فقط وطوله 9 أو 10 خانات
+        if (!phone.matches("\\d{9,10}")) {
+            etPhone.setError("Please enter a valid phone number");
+            etPhone.requestFocus();
             return;
         }
-    }
-   /** if (!etPhone.matches("\\d{9,10}")) {
-        etPhone.setError("Please enter a valid phone number");
-        etPhone.requestFocus();
-        return;
-    }*/
-    if (UserViewModel.isEmailExists(email)) {
-        etEmail.setError("This email is already registered");
-        etEmail.requestFocus();
-        return;
-    }}
-    /**
-    public boolean isEmailExists(String etEmail) {
-        MyUser user = UserRepository.getUserByEmail(etEmail).getValue();
-        if (user != null) {
-            return true;  // الإيميل موجود مسبقاً في قاعدة البيانات
-        } else {
-            return false; // الإيميل جديد وغير مسجل من قبل
+        // 3. استعمال العمليات التابعة لـ UserViewModel لفحص الإيميل وإضافة المستعمل MyUser
+            if (userViewModel.checkEmail(email) != null) {
+                etEmail.setError("This email is already registered");
+                etEmail.requestFocus();
+                return;
+            } else {
+                MyUser user = new MyUser();
+                user.setFullName(fullName);
+                user.setEmail(email);
+                user.setPassw(password);
+                user.setPhone(phone);
+                userViewModel.insert(user);
+//            Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+//            startActivity(intent);
+                finish();
+            }
         }
-    }*/
-    public void onClickNextS(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
-        Intent i = new Intent(RegisterActivity.this,SignInActivity.class);
-        //تفعيل نشاط/شاشة جديدة بواسطة Intent
-        startActivity(i);
+
+
+//    public void onClickNextS(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
+//        Intent i = new Intent(RegisterActivity.this, SignInActivity.class);
+//        //تفعيل نشاط/شاشة جديدة بواسطة Intent
+//        startActivity(i);
+//    }
+
     }
-}
+
+
