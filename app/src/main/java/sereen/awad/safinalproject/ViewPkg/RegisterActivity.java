@@ -13,6 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.regex.Pattern;
+
 import sereen.awad.safinalproject.R;
 import sereen.awad.safinalproject.ViewModel.UserViewModel;
 import sereen.awad.safinalproject.model.MyUserTable.MyUser;
@@ -77,28 +79,8 @@ public class RegisterActivity extends AppCompatActivity {
             etPassword.requestFocus();
             return;
         }
-        boolean hasLetter = false;
-        boolean hasDigit = false;
-        for (int i = 0; i < password.length(); i++) {
-            char c = password.charAt(i);
-            if (Character.isLetter(c)) {
-                hasLetter = true;
-            } else if (Character.isDigit(c)) {
-                hasDigit = true;
-            }
 
-            if (!hasLetter || !hasDigit) {
-                etPassword.setError("Password must include both letters and numbers");
-                etPassword.requestFocus();
-                return;
-            }
-        }
-        // فحص أن رقم الهاتف يتكون من أرقام فقط وطوله 9 أو 10 خانات
-        if (!phone.matches("\\d{9,10}")) {
-            etPhone.setError("Please enter a valid phone number");
-            etPhone.requestFocus();
-            return;
-        }
+
         // 3. استعمال العمليات التابعة لـ UserViewModel لفحص الإيميل وإضافة المستعمل MyUser
             if (userViewModel.checkEmail(email) != null) {
                 etEmail.setError("This email is already registered");
@@ -116,8 +98,26 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         }
+    // 1. فحص البريد الإلكتروني
+    public static boolean isValidEmail(String email) {
+        if (email == null) return false;
+        String emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        return Pattern.matches(emailPattern, email);
+    }
 
+    // 2. فحص رقم الهاتف المحمول الإسرائيلي (محلي أو دولي)
+    public static boolean isValidIsraeliMobile(String phone) {
+        if (phone == null) return false;
+        String israeliMobilePattern = "^(?:\\+?972|0)?5[0-9]-?[0-9]{7}$";
+        return Pattern.matches(israeliMobilePattern, phone);
+    }
 
+    // 3. فحص كلمة المرور
+    public static boolean isValidPassword(String password) {
+        if (password == null) return false;
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,}$";
+        return Pattern.matches(passwordPattern, password);
+    }
 //    public void onClickNextS(View v) {//نضع اسم الشاشة الحالية وبعدها اسم الشاشة التي ننتقل اليها
 //        Intent i = new Intent(RegisterActivity.this, SignInActivity.class);
 //        //تفعيل نشاط/شاشة جديدة بواسطة Intent

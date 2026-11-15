@@ -58,6 +58,7 @@ public class SignInActivity extends AppCompatActivity {
      يقوم بالتحقق من صحة الحقول المدخلة، استدعاء عملية تسجيل الدخول
      عند النجاح MainActivity والانتقال لـ Toast وإدارة النتيجة (نجاح أو فشل) عبر
      */
+
     private void signInUser() {
         //استخراج فحوى الحقول
         String email = emailEditText.getText().toString().trim();
