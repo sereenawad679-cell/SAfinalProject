@@ -36,6 +36,9 @@
             android:textColorLink="#6C4A31"
             android:textSize="24sp" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <EditText
             android:id="@+id/etFullName"
             android:layout_width="match_parent"
@@ -47,7 +50,12 @@
             android:textColor="#6C4A31"
             android:textColorLink="#6C4A31"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -59,7 +67,12 @@
             android:textColor="#6C4A31"
             android:textColorLink="#6C4A31"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
@@ -71,7 +84,13 @@
             android:textColor="#6C4A31"
             android:textColorLink="#6C4A31"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <EditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
@@ -83,6 +102,9 @@
             android:textColor="#6C4A31"
             android:textColorLink="#6C4A31"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <Button
             android:id="@+id/btnRegister"
