@@ -35,8 +35,12 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ViewPkg.SplashScreenActivity"
-            android:exported="false"
+            android:exported="true"
             android:windowSoftInputMode="adjustResize" />
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
     </application>
 
 </manifest>
