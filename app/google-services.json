@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1069370149937",
+    "project_id": "safinalproject-b0207",
+    "storage_bucket": "safinalproject-b0207.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069370149937:android:12d1688ddbbbdffa411910",
+        "android_client_info": {
+          "package_name": "sereen.awad.safinalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdf9apxqOJij6ZSyqE_0IYFdCP2-9FWT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
