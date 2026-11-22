@@ -25,7 +25,9 @@ public class SplashScreenActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
             });
-
+/*في ملف الجافا الخاص بالشاشة، نستخدم Handler للانتظار لمدة ثانيتين ونصف (2500 مللي ثانية)
+ ثم ننتقل عبر Intent إلى SignInActivity
+ونستدعي finish() حتى لا يعود المستخدم إليها عند الضغط على زر الرجوع*/
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 Intent intent = new Intent(SplashScreenActivity.this, SignInActivity.class);
                 startActivity(intent);
