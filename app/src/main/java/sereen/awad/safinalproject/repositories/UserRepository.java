@@ -3,6 +3,11 @@ package sereen.awad.safinalproject.repositories;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -10,131 +15,110 @@ import sereen.awad.safinalproject.model.AppDatabase;
 import sereen.awad.safinalproject.model.MyUserTable.MyUser;
 import sereen.awad.safinalproject.model.MyUserTable.MyUserQuery;
 
-/**
- * مستودع المستخدمين (UserRepository)
- * يعمل كطبقة وسيطة ومنظمة للوصول إلى بيانات المستخدمين (MyUser).
- * يقوم بفصل قاعدة البيانات Room و {@link MyUserQuery} عن بقية أجزاء التطبيق (ViewModels).
- */
+/** مستودع المستخدمين (UserRepository)
+* الدور في هيكلية MVVM:
+        * - هذه الفئة هي طبقة الوصول للبيانات (Data Layer) التي تتعامل مباشرة مع خدمات Firebase السحابية.
+        * - تتولى جميع عمليات المصادقة (Firebase Authentication) وقراءة/كتابة بيانات المستخدمين (Firestore).
+        * - تُرجع LiveData<MyUser> مباشرة بدون تغليف Resource، بحيث تصل النتيجة إلى الـ ViewModel
+*   ثم إلى الواجهة التي تراقبها عبر observe وتُحدّث الـ UI تلقائياً.
+* الخدمات المستخدمة:
+        * 1. FirebaseAuth      → تسجيل الدخول وإنشاء الحسابات وإدارة الجلسة.
+        * 2. FirebaseFirestore → تخزين بيانات المستخدمين في مجموعة "users".
+        * العمليات المتاحة:
+        * - registerUser   → تسجيل مستخدم جديد (Auth + Firestore).
+        * - loginUser      → تسجيل دخول مستخدم موجود (Auth + Firestore).
+        * - getCurrentUser → جلب المستخدم المسجل دخوله حالياً.
+* - logout         → تسجيل الخروج.
+        */
+
 public class UserRepository {
-    private final MyUserQuery userQuery; // واجهة الاستعلامات
-    private final LiveData<List<MyUser>> allUsers; // قائمة جميع المستخدمين
+    /**
+     * كائن Firebase Authentication المسؤول عن تسجيل الدخول وإنشاء الحسابات. */
+    private final FirebaseAuth mAuth;
+    /** كائن Firebase Firestore المسؤول عن قراءة وكتابة بيانات المستخدمين في قاعدة البيانات السحابية.   */
+    private final FirebaseFirestore db;
 
     /**
-     * منشئ الكلاس (Constructor)
-     * يقوم بتهيئة قاعدة البيانات واسترجاع كائن الـ DAO الخاص بالمستخدمين.
+     * المُنشئ (Constructor) - يهيئ اتصالات Firebase.
      *
-     * @param application سياق التطبيق (Application Context).
+     * @param application كائن التطبيق (Application) - غير مستخدم حالياً لكن يُحفظ ليتوافق مع نمط المستودعات.
      */
     public UserRepository(Application application) {
-        AppDatabase db = AppDatabase.getDB(application);
-        userQuery = db.getUserQuery();
-        allUsers = userQuery.getAllUsers();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
     }
+    /** تسجيل مستخدم جديد في التطبيق */
+    public LiveData<MyUser> registerUser(MyUser user) {// insert(MyUser user) او
+        // المرحلة 1: إنشاء كائن LiveData قابل للتعديل لإرسال النتيجة لاحقاً
+        MutableLiveData<MyUser> userLiveData = new MutableLiveData<>();
+        // المرحلة 3: إنشاء حساب في Firebase Authentication بالبريد وكلمة المرور
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassw())
+                .addOnCompleteListener(task -> { //هل تم التسجيل بنجاح
+                    if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
+                        // المرحلة 4: استخراج UID الخاص بالمستخدم الجديد من Firebase Auth
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        String uid = firebaseUser.getUid();
+                        user.setFirestoreUid(uid); // حفظ الـ UID داخل كائن المستخدم
+                        // المرحلة 5: حفظ بيانات المستخدم كاملة في Firestore ضمن مجموعة "users"
+                        // المستند يُنشأ بنفس الـ UID لضمان الربط بين Auth و Firestore
+                        db.collection("users").document(uid).set(user)
+                                .addOnSuccessListener(aVoid -> userLiveData.setValue(user)) // نجاح الحفظ
+                                .addOnFailureListener(e -> userLiveData.setValue(null));     // فشل الحفظ
+                    } else {
+                        userLiveData.setValue(null);// فشل إنشاء الحساب في Authentication (بريد مكرر، كلمة مرور ضعيفة...)
+                    }
+                });
+        // المرحلة 6: إرجاع LiveData فوراً - النتيجة ستصل لاحقاً عند اكتمال العمليات السحابية
+        return userLiveData;
+    }
+    /** * تسجيل الدخول لمستخدم موجود*/
+    public LiveData<MyUser> login(String email, String password) {
+        // المرحلة 1: إنشاء كائن LiveData قابل للتعديل لإرسال النتيجة لاحقاً
+        MutableLiveData<MyUser> userLiveData = new MutableLiveData<>();
+        // المرحلة 3: محاولة تسجيل الدخول في Firebase Authentication
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            //هل تم الدخول بنجاح؟
+            if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
+                // المرحلة 4: استخراج UID الخاص بالمستخدم الذي سجل دخوله بنجاح
+                String uid = mAuth.getCurrentUser().getUid();
+                // المرحلة 5: جلب بيانات المستخدم الكاملة من Firestore
+                // المستند يُقرأ من مجموعة "users" باستخدام الـ UID كمعرّف
+                db.collection("users").document(uid).get()
+                        .addOnCompleteListener(firestoreTask -> {
+                            if (firestoreTask.isSuccessful() && firestoreTask.getResult() != null &&
+                                    firestoreTask.getResult().exists()) {
+                                // المرحلة 6أ: المستند موجود - تحويله إلى كائن MyUser وإرساله
+                                MyUser fetchedUser = firestoreTask.getResult().toObject(MyUser.class);
+                                userLiveData.setValue(fetchedUser);//هذه النتيجة ستصل لجواب ال observe
+                            } else {
+                                // المرحلة 6ب: فشل الجلب أو المستند غير موجود - إرسال null
+                                userLiveData.setValue(null);//هذه النتيجة ستصل لجواب ال observe
 
+
+                            }
+                        });
+            } else {
+                // فشل تسجيل الدخول (بريد أو كلمة مرور غير صحيحة)
+                userLiveData.setValue(null);
+            }
+        });
+
+
+        // المرحلة 7: إرجاع LiveData فوراً - النتيجة ستصل لاحقاً عند اكتمال العمليات السحابية
+        return userLiveData;
+    }
     /**
-     * جلب جميع المستخدمين الموجودين في قاعدة البيانات كـ LiveData.
+     * جلب المستخدم الحالي المسجل دخوله في Firebase Authentication.
      *
-     * @return قائمة بجميع المستخدمين المحدثة تلقائياً.
+     * @return كائن FirebaseUser الحالي، أو null إذا لم يسجل أي مستخدم دخوله.
      */
-    public LiveData<List<MyUser>> getAllUsers() {
-        return allUsers;
+    public FirebaseUser getCurrentUser() {
+        return mAuth.getCurrentUser();
     }
-
     /**
-     * جلب مستخدم معين بناءً على معرفه الفريد (Key ID).
-     *
-     * @param keyId معرف المستخدم.
-     * @return كائن المستخدم المطلوب كـ LiveData.
+     * تسجيل خروج المستخدم الحالي من Firebase Authentication.
      */
-    public LiveData<MyUser> getUserById(long keyId) {
-        return userQuery.getUserById(keyId);
+    public void logout() {
+        mAuth.signOut();
     }
-
-    /**
-     * البحث عن مستخدمين حسب الاسم الكامل.
-     *
-     * @param fullName الاسم الكامل للبحث عنه.
-     * @return قائمة المستخدمين المطابقة.
-     */
-    public LiveData<List<MyUser>> getUsersByFullName(String fullName) {
-        return userQuery.getUsersByFullName(fullName);
-    }
-
-    /**
-     * جلب مستخدم حسب البريد الإلكتروني.
-     *
-     * @param email البريد الإلكتروني.
-     * @return المستخدم المطلوب كـ LiveData.
-     */
-    public LiveData<MyUser> getUserByEmail(String email) {
-        return userQuery.getUserByEmail(email);
-    }
-
-    /**
-     * البحث عن مستخدمين حسب رقم الهاتف.
-     *
-     * @param phone رقم الهاتف.
-     * @return قائمة المستخدمين المطابقة.
-     */
-    public LiveData<List<MyUser>> getUsersByPhone(String phone) {
-        return userQuery.getUsersByPhone(phone);
-    }
-
-    /**
-     * التحقق من البريد الإلكتروني وكلمة المرور لتسجيل الدخول.
-     *
-     * @param email البريد الإلكتروني.
-     * @param passw كلمة المرور.
-     * @return قائمة تحتوي على المستخدم إن وجد.
-     */
-    public List<MyUser> checkEmailPassw(String email, String passw) {
-        return userQuery.checkEmailPassw(email, passw);
-    }
-
-    /**
-     * فحص هل البريد الإلكتروني مسجل مسبقاً.
-     *
-     * @param email البريد الإلكتروني.
-     * @return كائن المستخدم إن وجد.
-     */
-    public MyUser checkEmail(String email) {
-        return userQuery.checkEmail(email);
-    }
-
-    /**
-     * إدراج مستخدم أو عدة مستخدمين جدد في قاعدة البيانات.
-     *
-     * @param users المستخدمون المراد إضافتهم.
-     */
-    public void insert(MyUser... users) {
-        userQuery.insertUser(users);
-    }
-
-    /**
-     * تحديث بيانات مستخدم أو عدة مستخدمين.
-     *
-     * @param users المستخدمون المراد تحديثهم.
-     */
-    public void update(MyUser... users) {
-        userQuery.updateUser(users);
-    }
-
-    /**
-     * حذف مستخدم أو عدة مستخدمين من قاعدة البيانات.
-     *
-     * @param users المستخدمون المراد حذفهم.
-     */
-    public void delete(MyUser... users) {
-        userQuery.deleteUser(users);
-    }
-
-    /**
-     * حذف مستخدم محدد باستخدام معرفه الفريد (Key ID).
-     *
-     * @param keyId معرف المستخدم المراد حذفه.
-     */
-    public void deleteUserById(long keyId) {
-        userQuery.deleteUserById(keyId);
-    }
-
 }
